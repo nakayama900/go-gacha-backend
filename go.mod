@@ -1,4 +1,4 @@
-module github.com/SystemEngineeringTeam/sysken-gacha-backend
+module github.com/nakayama900/go-gacha-backend
 
 go 1.19
 
@@ -30,4 +30,3 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-

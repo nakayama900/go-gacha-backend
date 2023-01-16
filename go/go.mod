@@ -1,4 +1,4 @@
-module github.com/SystemEngineeringTeam/sysken-gacha-backend/go
+module github.com/nakayama900/go-gacha-backend/go
 
 go 1.19
 
