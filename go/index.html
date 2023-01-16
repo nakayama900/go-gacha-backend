@@ -1,0 +1,689 @@
+<!doctype html>
+<html>
+  <head>
+    <title>SyskenGacha-backend</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>SyskenGacha-backend</h1>
+    <div class="app-desc">SyskenGachaのバックエンド。</div>
+    <div class="app-desc">More information: <a href="https://openapi-generator.tech">https://openapi-generator.tech</a></div>
+    <div class="app-desc">Contact Info: <a href="team@openapitools.org">team@openapitools.org</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>HTTP Basic Authentication</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Default">Default</a></h4>
+  <ul>
+  <li><a href="#adminItemPost"><code><span class="http-method">post</span> /admin/item</code></a></li>
+  <li><a href="#adminItemPut"><code><span class="http-method">put</span> /admin/item</code></a></li>
+  <li><a href="#adminUploadPost"><code><span class="http-method">post</span> /admin/upload</code></a></li>
+  <li><a href="#authUserIdPost"><code><span class="http-method">post</span> /admin/auth/{user_id}</code></a></li>
+  <li><a href="#bcryptGet"><code><span class="http-method">post</span> /admin/bcrypt</code></a></li>
+  <li><a href="#gachaGet"><code><span class="http-method">get</span> /backend/gacha</code></a></li>
+  <li><a href="#gachaItemIdGet"><code><span class="http-method">get</span> /backend/gacha/{ItemId}</code></a></li>
+  <li><a href="#randomGet"><code><span class="http-method">get</span> /backend/gacha/random/</code></a></li>
+  <li><a href="#staticPictIdGet"><code><span class="http-method">get</span> /backend/static/{PictId}</code></a></li>
+  </ul>
+
+  <h1><a name="Default">Default</a></h1>
+  <div class="method"><a name="adminItemPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /admin/item</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">adminItemPost</span>)</div>
+    <div class="method-notes">アイテムの追加</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">name (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; アイテム名 default: null </div><div class="param">rare (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; レアリティ default: null format: int64</div><div class="param">image (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; 画像ID default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GachaItem">GachaItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "pictId" : 6,
+  "name" : "name",
+  "id" : 0,
+  "rare" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#GachaItem">GachaItem</a>
+    <h4 class="field-label">400</h4>
+    リクエストが不正な場合
+        <a href="#GachaItem">GachaItem</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="adminItemPut"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /admin/item</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">adminItemPut</span>)</div>
+    <div class="method-notes">アイテムの編集</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">item_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; ID default: null format: int64</div><div class="param">name (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; アイテム名 default: null </div><div class="param">rare (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; レアリティ default: null format: int32</div><div class="param">image (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; 画像ID default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#String">String</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="adminUploadPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /admin/upload</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">adminUploadPost</span>)</div>
+    <div class="method-notes">画像のアップロード</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>multipart/form-data</code></li>
+    </ul>
+
+
+
+
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      <div class="param">file (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Form Parameter</span> &mdash;  default: null format: binary</div><div class="param">name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Form Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GachaItem">GachaItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "pictId" : 6,
+  "name" : "name",
+  "id" : 0,
+  "rare" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#GachaItem">GachaItem</a>
+    <h4 class="field-label">400</h4>
+    リクエストが不正な場合
+        <a href="#GachaItem">GachaItem</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="authUserIdPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /admin/auth/{user_id}</code></pre></div>
+    <div class="method-summary">ユーザー認証 (<span class="nickname">authUserIdPost</span>)</div>
+    <div class="method-notes">ユーザー認証</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ユーザーID default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">PasswordObject <a href="#PasswordObject">PasswordObject</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#String">String</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="bcryptGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /admin/bcrypt</code></pre></div>
+    <div class="method-summary">パスワードをハッシュ化します (<span class="nickname">bcryptGet</span>)</div>
+    <div class="method-notes">パスワードをハッシュ化します</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">source (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; パスワード default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#String">String</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="gachaGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /backend/gacha</code></pre></div>
+    <div class="method-summary">ガチャリスト (<span class="nickname">gachaGet</span>)</div>
+    <div class="method-notes">ガチャにて排出される全アイテムのリスト</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GachaItem">GachaItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "pictId" : 6,
+  "name" : "name",
+  "id" : 0,
+  "rare" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常時のレスポンス
+        <a href="#GachaItem">GachaItem</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="gachaItemIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /backend/gacha/{ItemId}</code></pre></div>
+    <div class="method-summary">ガチャアイテム (<span class="nickname">gachaItemIdGet</span>)</div>
+    <div class="method-notes">ガチャアイテム</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">ItemId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ガチャID default: null format: int64</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GachaList">GachaList</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "gachaList" : [ {
+    "pictId" : 6,
+    "name" : "name",
+    "id" : 0,
+    "rare" : 1
+  }, {
+    "pictId" : 6,
+    "name" : "name",
+    "id" : 0,
+    "rare" : 1
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#GachaList">GachaList</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="randomGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /backend/gacha/random/</code></pre></div>
+    <div class="method-summary">ランダムなガチャアイテム (<span class="nickname">randomGet</span>)</div>
+    <div class="method-notes">ランダムなガチャアイテム</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GachaItem">GachaItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "pictId" : 6,
+  "name" : "name",
+  "id" : 0,
+  "rare" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    正常なレスポンス
+        <a href="#GachaItem">GachaItem</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="staticPictIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /backend/static/{PictId}</code></pre></div>
+    <div class="method-summary">画像 (<span class="nickname">staticPictIdGet</span>)</div>
+    <div class="method-notes">指定されたIdの画像を返却します</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">PictId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; 取得したい画像の連番ID default: null format: int64</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      File
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>image/jpg</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    存在時のレスポンス
+        <a href="#File">File</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#GachaItem"><code>GachaItem</code> - GachaItem</a></li>
+    <li><a href="#GachaList"><code>GachaList</code> - GachaList</a></li>
+    <li><a href="#PasswordObject"><code>PasswordObject</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="GachaItem"><code>GachaItem</code> - GachaItem</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">pictId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: int64</div>
+<div class="param">rare (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GachaList"><code>GachaList</code> - GachaList</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">gachaList (optional)</div><div class="param-desc"><span class="param-type"><a href="#GachaItem">array[GachaItem]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PasswordObject"><code>PasswordObject</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

@@ -1,0 +1,322 @@
+openapi: 3.0.1
+info:
+  description: |
+    SyskenGachaのバックエンド。
+  title: SyskenGacha-backend
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /backend/gacha:
+    get:
+      description: ガチャにて排出される全アイテムのリスト
+      operationId: gacha_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaItem'
+          description: 正常時のレスポンス
+      summary: ガチャリスト
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /backend/gacha/{ItemId}:
+    get:
+      description: ガチャアイテム
+      operationId: gacha_item_id_get
+      parameters:
+      - description: ガチャID
+        explode: false
+        in: path
+        name: ItemId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaList'
+          description: 正常なレスポンス
+      summary: ガチャアイテム
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /backend/gacha/random/:
+    get:
+      description: ランダムなガチャアイテム
+      operationId: random_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaItem'
+          description: 正常なレスポンス
+      summary: ランダムなガチャアイテム
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /backend/static/{PictId}:
+    get:
+      description: 指定されたIdの画像を返却します
+      operationId: static_pict_id_get
+      parameters:
+      - description: 取得したい画像の連番ID
+        explode: false
+        in: path
+        name: PictId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            image/*:
+              schema:
+                format: binary
+                type: string
+                x-content-type: image/jpg
+          description: 存在時のレスポンス
+      summary: 画像
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /admin/bcrypt:
+    post:
+      description: パスワードをハッシュ化します
+      operationId: bcrypt_get
+      parameters:
+      - description: パスワード
+        explode: false
+        in: query
+        name: source
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: 正常なレスポンス
+      summary: パスワードをハッシュ化します
+      x-openapi-router-controller: openapi_server.controllers.security_controller
+  /admin/auth/{user_id}:
+    post:
+      description: ユーザー認証
+      operationId: auth_user_id_post
+      parameters:
+      - description: ユーザーID
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/PasswordObject'
+        required: true
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 正常なレスポンス
+      summary: ユーザー認証
+      x-openapi-router-controller: openapi_server.controllers.security_controller
+  /admin/item:
+    post:
+      description: アイテムの追加
+      operationId: admin_item_post
+      parameters:
+      - description: アイテム名
+        explode: false
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: レアリティ
+        explode: false
+        in: query
+        name: rare
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - description: 画像ID
+        explode: false
+        in: query
+        name: image
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaItem'
+          description: 正常なレスポンス
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaItem'
+          description: リクエストが不正な場合
+      security:
+      - jwt: []
+      x-openapi-router-controller: openapi_server.controllers.security_controller
+    put:
+      description: アイテムの編集
+      operationId: admin_item_put
+      parameters:
+      - description: ID
+        explode: false
+        in: query
+        name: item_id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - description: アイテム名
+        explode: false
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: レアリティ
+        explode: false
+        in: query
+        name: rare
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: 画像ID
+        explode: false
+        in: query
+        name: image
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: 正常なレスポンス
+      security:
+      - jwt: []
+      x-openapi-router-controller: openapi_server.controllers.security_controller
+  /admin/upload:
+    post:
+      description: 画像のアップロード
+      operationId: admin_upload_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/admin_upload_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaItem'
+          description: 正常なレスポンス
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GachaItem'
+          description: リクエストが不正な場合
+      security:
+      - jwt: []
+      x-openapi-router-controller: openapi_server.controllers.security_controller
+components:
+  schemas:
+    GachaItem:
+      example:
+        pictId: 6
+        name: name
+        id: 0
+        rare: 1
+      properties:
+        id:
+          format: int64
+          title: id
+          type: integer
+        name:
+          title: name
+          type: string
+        pictId:
+          format: int64
+          title: pictId
+          type: string
+        rare:
+          format: int64
+          title: rare
+          type: integer
+      title: GachaItem
+      type: object
+    GachaList:
+      example:
+        gachaList:
+        - pictId: 6
+          name: name
+          id: 0
+          rare: 1
+        - pictId: 6
+          name: name
+          id: 0
+          rare: 1
+      properties:
+        gachaList:
+          items:
+            $ref: '#/components/schemas/GachaItem'
+          title: gachaList
+          type: array
+      title: GachaList
+      type: object
+    PasswordObject:
+      example:
+        password: password
+      properties:
+        password:
+          type: string
+      required:
+      - password
+      type: object
+    admin_upload_post_request:
+      properties:
+        file:
+          format: binary
+          type: string
+          x-content-type: image/jpg
+        name:
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: openapi_server.controllers.token.decode_token
