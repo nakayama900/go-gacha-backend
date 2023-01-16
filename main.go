@@ -19,8 +19,8 @@ import (
 	//
 	//sw "github.com/GIT_USER_ID/GIT_REPO_ID/go"
 	//
-	sw "github.com/SystemEngineeringTeam/sysken-gacha-backend/go"
 	"github.com/joho/godotenv"
+	sw "github.com/nakayama900/go-gacha-backend/go"
 )
 
 func main() {

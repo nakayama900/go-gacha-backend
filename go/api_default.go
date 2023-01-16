@@ -311,7 +311,6 @@ func StaticPictIdGet(c *gin.Context) {
 		return
 	case "url":
 		file, err := getRemoteImage(item.image)
-		defer file.Close()
 		if err != nil {
 			log.Println("something error happen")
 			c.String(http.StatusNotFound, "ErrorOccuredWhileFetching")

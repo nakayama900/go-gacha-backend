@@ -2,7 +2,7 @@ module github.com/nakayama900/go-gacha-backend
 
 go 1.19
 
-require github.com/SystemEngineeringTeam/sysken-gacha-backend/go v0.0.0
+require github.com/nakayama900/go-gacha-backend/go v0.0.0
 
 require (
 	github.com/auth0/go-jwt-middleware v1.0.1 // indirect
@@ -30,3 +30,4 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+replace github.com/nakayama900/go-gacha-backend/go => ./go
