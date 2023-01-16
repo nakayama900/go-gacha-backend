@@ -40,8 +40,7 @@ func NewRouter() *gin.Engine {
 
 	customStaticPath := os.Getenv("static_uri")
 	customStaticDir := os.Getenv("static_dir")
-	if (customStaticDir != ""
-	&& customStaticPath != "" ){
+	if customStaticDir != "" && customStaticPath != "" {
 		router.Static(customStaticPath, customStaticDir)
 	}
 
