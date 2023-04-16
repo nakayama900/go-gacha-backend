@@ -11,42 +11,40 @@ package openapi
 
 import (
 	"database/sql"
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
-	_ "github.com/mattn/go-sqlite3"
-	"golang.org/x/crypto/bcrypt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func OpenDB() *sql.DB {
+var db *sql.DB
+
+func init() {
 	godotenv.Load()
 	println(os.Getenv("DB_PATH"))
 	println("db open")
-	db, err := sql.Open("sqlite3", os.Getenv("DB_PATH"))
+	var err error
+	db, err = sql.Open("sqlite3", os.Getenv("DB_PATH"))
 	if err != nil {
 		log.Fatal(err)
 	}
 	println("db open end")
-	return db
-	//sqlStmt := `
-	//create table foo (id integer not null primary key, name text);
-	//delete from foo;
-	//`
-	//_, err = db.Exec(sqlStmt)
-	//if err != nil {
-	//	log.Printf("%q: %s\n", err, sqlStmt)
-	//	return
-	//}
 }
 
 // AdminItemPost -
+// @Summary アイテム追加
+// @Description ガチャアイテムを追加します。name:ガチャのアイテム名、pict_id:画像の識別文字列（ストレージ内ならパス名、ネット上ならURLを表記)、
+// @Tags item, edit, post, write, append
+// @Accept mpfd
+// @Produce json
+// @Param name string formData pict_id
 func AdminItemPost(c *gin.Context) {
-	//c.GetPostFormMap()
-	db := OpenDB()
 	var boolMap map[int64]bool
 	var name, pictId, rareString string
 
@@ -59,7 +57,12 @@ func AdminItemPost(c *gin.Context) {
 		log.Fatal(err)
 	}
 
-	InsertResult, err := db.Exec("INSERT INTO items (name, pict_id, rare) VALUES (?, ?, ?)", name, pictId, rare)
+	InsertResult, err := db.Exec(
+		"INSERT INTO items (name, pict_id, rare) VALUES (?, ?, ?)",
+		name,
+		pictId,
+		rare,
+	)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{})
 		log.Fatal(err)
@@ -78,8 +81,10 @@ func AdminItemPost(c *gin.Context) {
 }
 
 // AdminItemPut -
+// @Summary アイテム書き換え
+// @Description idを指定し、書き換えます。
+// @Tags item, edit put, write, replace
 func AdminItemPut(c *gin.Context) {
-	db := OpenDB()
 	var keys []string
 	id := c.Request.FormValue("id")
 	if id == "" {
@@ -99,7 +104,13 @@ func AdminItemPut(c *gin.Context) {
 		keys = append(keys, "rare")
 	}
 
-	UpdateResult, err := db.Exec("UPDATE items SET name = ?, pict_id = ?, rare = ? WHERE id = ?", name, pictId, rare, id)
+	UpdateResult, err := db.Exec(
+		"UPDATE items SET name = ?, pict_id = ?, rare = ? WHERE id = ?",
+		name,
+		pictId,
+		rare,
+		id,
+	)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{})
 		log.Fatal(err)
@@ -119,7 +130,9 @@ func AdminItemPut(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"LastID": LastInsertId, "RowsAffected": RowsAffected})
 }
 
-// AdminUploadPost -
+// AdminUploadPost
+// @Summary サーバー内にデータをアップロードします
+// @Description サーバー内に任意の形式のデータをアップロードします。保存先は、起動時の変数で指定されたフォルダのサブフォルダです。既存のデータを上書きする可能性があります。修正予定です\nサーバにアップロードせずにアイテム画像として使用することは可能です。
 func AdminUploadPost(c *gin.Context) {
 	err := c.Request.ParseMultipartForm(32 << 20)
 	if err != nil {
@@ -183,12 +196,11 @@ func BcryptGet(c *gin.Context) {
 		log.Fatal(err)
 	}
 	c.String(http.StatusOK, string(hash))
-	//c.JSON(http.StatusOK, gin.H{})
+	// c.JSON(http.StatusOK, gin.H{})
 }
 
 // GachaGet - ガチャリスト
 func GachaGet(c *gin.Context) {
-	db := OpenDB()
 	rows, err := db.Query("SELECT id,description,rare,coalesce(image,''),source FROM items")
 	if err != nil {
 		log.Fatal(err)
@@ -208,7 +220,6 @@ func GachaGet(c *gin.Context) {
 
 // GachaItemIdGet - ガチャアイテム
 func GachaItemIdGet(c *gin.Context) {
-	db := OpenDB()
 	type ReqId struct {
 		ItemId int `uri:"id" binding:"required"`
 	}
@@ -217,7 +228,10 @@ func GachaItemIdGet(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	rows, err := db.Query("SELECT id,description,rare,coalesce(image,''),source FROM items WHERE id = ? limit 1", req.ItemId)
+	rows, err := db.Query(
+		"SELECT id,description,rare,coalesce(image,''),source FROM items WHERE id = ? limit 1",
+		req.ItemId,
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -237,11 +251,10 @@ func GachaItemIdGet(c *gin.Context) {
 
 // RandomGet - ランダムなガチャアイテム
 func RandomGet(c *gin.Context) {
-	db := OpenDB()
 	rows, err := db.Query(
 		"SELECT id,description,rare,coalesce(image,''),source FROM items ORDER BY random() LIMIT 1")
 	if err != nil {
-		println("opendb fatal error")
+		println("db query fatal error")
 		log.Fatal(err)
 	}
 	var gacha GachaItem
@@ -270,11 +283,13 @@ func StaticPictIdGet(c *gin.Context) {
 		log.Fatal(err)
 		return
 	}
-	//c.JSON(http.StatusOK, gin.H{"request.id": req.ItemId})
+	// c.JSON(http.StatusOK, gin.H{"request.id": req.ItemId})
 	println("id:", strconv.Itoa(req.ItemId))
-	db := OpenDB()
-	rows, err :=
-		db.Query("SELECT id,coalesce(image,''),source FROM items WHERE id = ? LIMIT 1", req.ItemId)
+
+	rows, err := db.Query(
+		"SELECT id,coalesce(image,''),source FROM items WHERE id = ? LIMIT 1",
+		req.ItemId,
+	)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -325,7 +340,6 @@ func StaticPictIdGet(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "UnexpectedSource")
 		return
 	}
-
 }
 
 // formValidate - フォームバリデーション
@@ -344,6 +358,7 @@ func formValidate(c *gin.Context, keys []string) bool {
 	}
 	return true
 }
+
 func isKeysExist(c *gin.Context, keys []string) map[string]bool {
 	err := c.Request.ParseForm()
 	if err != nil {
